@@ -1,14 +1,14 @@
 const express = require("express");
-const fetch = require("node-fetch"); // precisa dessa lib
+const fetch = require("node-fetch"); // precisa estar no package.json
 const app = express();
 
 app.use(express.json());
 
-// Token que você escolheu no painel do Meta
+// Token que você cadastrou no painel do Meta (o mesmo que digita lá)
 const VERIFY_TOKEN = "rock";
 
-// Webhook do Make (cole o seu aqui)
-const MAKE_WEBHOOK_URL = "https://hook.eu2.make.com/SEU_WEBHOOK_ID";
+// Webhook do Make (substitua pela URL do seu webhook no Make)
+const MAKE_WEBHOOK_URL = "https://hook.eu2.make.com/nomwh72all6gpn9uj16uvcqawzyu667j";
 
 // 🔹 GET → usado só na validação inicial do Meta
 app.get("/", (req, res) => {
@@ -24,25 +24,28 @@ app.get("/", (req, res) => {
   }
 });
 
-// 🔹 POST → toda mensagem recebida no WhatsApp vem aqui
+// 🔹 POST → toda mensagem recebida do WhatsApp cai aqui
 app.post("/", async (req, res) => {
   console.log("📩 Recebi do Meta:", JSON.stringify(req.body, null, 2));
 
-  // responde imediatamente para o Meta (tem que ser rápido)
+  // responde imediatamente para o Meta
   res.sendStatus(200);
 
   try {
-    // repassa o mesmo body para o Make
-    await fetch(https://hook.eu2.make.com/nomwh72all6gpn9uj16uvcqawzyu667j, {
+    // repassa para o Make
+    await fetch(MAKE_WEBHOOK_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(req.body)
     });
     console.log("➡️ Repassado para o Make com sucesso!");
   } catch (err) {
-    console.error("Erro ao repassar para o Make:", err);
+    console.error("❌ Erro ao repassar para o Make:", err);
   }
 });
 
+// Porta do Render
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`🚀 Servidor rodando na porta ${PORT}`);
+});
