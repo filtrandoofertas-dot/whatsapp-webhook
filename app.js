@@ -1,10 +1,10 @@
 const express = require("express");
-const fetch = require("node-fetch"); // precisa estar no package.json
+const fetch = require("node-fetch"); // versão 2.6.7
 const app = express();
 
 app.use(express.json());
 
-// Token que você cadastrou no painel do Meta (o mesmo que digita lá)
+// Token que você cadastrou no painel do Meta (o mesmo que digitar lá)
 const VERIFY_TOKEN = "rock";
 
 // Webhook do Make (substitua pela URL do seu webhook no Make)
