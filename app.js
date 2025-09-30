@@ -33,7 +33,7 @@ app.post("/", async (req, res) => {
 
   try {
     // repassa o mesmo body para o Make
-    await fetch(MAKE_WEBHOOK_URL, {
+    await fetch(https://hook.eu2.make.com/nomwh72all6gpn9uj16uvcqawzyu667j, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(req.body)
